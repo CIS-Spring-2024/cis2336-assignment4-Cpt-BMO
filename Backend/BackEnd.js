@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
-// Create an instance of Express
 const app = express();
 
 // Define menu items
@@ -57,14 +56,11 @@ const menuItems = {
   ]
 };
 
-// Middleware to parse JSON and handle URL encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Enable CORS for all routes
 app.use(cors());
 
 // Define route to handle GET requests to /api/menu/:meal
@@ -106,13 +102,11 @@ app.post('/process-order', (req, res) => {
     totalAmount += menuItem.price * item.quantity;
   });
 
-  // For demonstration purposes, let's just send a response indicating success
   res.status(200).json({ totalAmount });
 });
 
 // Serve the order confirmation page
 app.get('/confirmation', (req, res) => {
-  // Assuming you have an HTML file named confirmation.html in your 'public' directory
   res.sendFile(path.join(__dirname, 'public', 'confirmation.html'));
 });
 

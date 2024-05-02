@@ -114,12 +114,9 @@ function showMenu(meal) {
     });
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
   showMenu('Burgers');
 });
 
-// Rest of the code for shopping cart functionality and event listeners...
 
 
