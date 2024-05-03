@@ -59,7 +59,8 @@ const menuItems = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'Frontend', 'HTML')));
 
 app.use(cors());
 
@@ -102,12 +103,13 @@ app.post('/process-order', (req, res) => {
     totalAmount += menuItem.price * item.quantity;
   });
 
-  res.status(200).json({ totalAmount });
+  // Send a redirect response
+  res.redirect('/confirmation');
 });
 
 // Serve the order confirmation page
 app.get('/confirmation', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'confirmation.html'));
+  res.sendFile(path.join(__dirname, 'Frontend', 'HTML', 'confirmation.html'));
 });
 
 // Start the Express server

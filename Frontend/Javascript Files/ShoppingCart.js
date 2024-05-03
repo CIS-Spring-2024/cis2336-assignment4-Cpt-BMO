@@ -31,7 +31,7 @@ function submitOrder() {
             cartItem.remove();
         });
         updateCart();
-        alert('Your order has been placed successfully!');
+        window.location.href = './confirmation.html';
     }
 }
 
