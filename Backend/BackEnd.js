@@ -60,7 +60,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'Frontend', 'HTML')));
+app.use(express.static(path.join(__dirname, 'Frontend')));
 
 app.use(cors());
 
@@ -78,38 +78,18 @@ app.get('/api/menu/:meal', (req, res) => {
     }
 });
 
-// Process order form data
-app.post('/process-order', (req, res) => {
-  const { items } = req.body;
+// Handle POST requests to update total price
+app.post('/update-total-price', (req, res) => {
+  const { totalPrice } = req.body;
+  console.log('Total price received from the frontend:', totalPrice);
 
-  // Validate the form data
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ error: "No items provided in the order" });
-  }
-
-  let totalAmount = 0;
-
-  // Calculate the total amount
-  items.forEach(item => {
-    if (!item.id || !item.quantity || item.quantity <= 0) {
-      return res.status(400).json({ error: "Invalid item data" });
-    }
-
-    const menuItem = menuItems[item.category].find(menuItem => menuItem.id === item.id);
-    if (!menuItem) {
-      return res.status(404).json({ error: `Item not found in category ${item.category}` });
-    }
-
-    totalAmount += menuItem.price * item.quantity;
-  });
-
-  // Send a redirect response
-  res.redirect('/confirmation');
+  res.redirect(`/confirmation?totalPrice=${totalPrice}`);
 });
 
 // Serve the order confirmation page
 app.get('/confirmation', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Frontend', 'HTML', 'confirmation.html'));
+  const totalPrice = req.query.totalPrice || 0;
+  res.redirect(`http://127.0.0.1:5500/cis2336-assignment4-Cpt-BMO/Frontend/HTML%20Files/confirmation.html?totalPrice=${totalPrice}`);
 });
 
 // Start the Express server

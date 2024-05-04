@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openShopping = document.querySelector('.cart-container');
     const closeShopping = document.querySelector('.closeShopping');
     const shoppingCartList = document.querySelector('.MenuItems');
+    let totalPrice = 0;
 
     // Event listener to open the shopping cart
     openShopping.addEventListener('click', () => {
@@ -26,12 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function submitOrder() {
     const confirmed = window.confirm('Are you sure you want to place this order?');
     if (confirmed) {
-        const cartItems = document.querySelectorAll('.cart-item');
-        cartItems.forEach(cartItem => {
-            cartItem.remove();
+        const totalPriceElement = document.querySelector('.total');
+        const totalPriceText = totalPriceElement.textContent;
+        const totalPrice = parseFloat(totalPriceText.replace('$', '')); // Extract the price from the text
+
+        // Send the total price to the backend
+        sendTotalPrice(totalPrice).then(() => {
+            // Redirect to the confirmation page after successfully sending the total price
+            window.location.href = './confirmation.html';
+        }).catch(error => {
+            console.error('Error sending total price to the backend:', error);
         });
-        updateCart();
-        window.location.href = './confirmation.html';
     }
 }
 
@@ -61,6 +67,29 @@ function updateTotalPrice() {
         totalPriceElement.addEventListener('click', submitOrder);
     }
     totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+}
+
+// Function to send the total price to the backend
+function sendTotalPrice(totalPrice) {
+    fetch('http://localhost:3000/update-total-price', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ totalPrice: totalPrice })
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Total price successfully sent to the backend');
+            // Redirect to the confirmation page after successfully sending the total price
+            window.location.href = `../HTML%20Files/confirmation.html?totalPrice=${totalPrice}`;
+        } else {
+            console.error('Error sending total price to the backend');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending total price to the backend:', error);
+    });
 }
 
 // Function to update the cart (quantity and total price)
@@ -174,3 +203,11 @@ function addToCart(item) {
         updateTotalPrice();
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateCart(); // Get total price on page load
+
+    const totalPriceElement = document.querySelector('.total');
+    // Remove event listener for form submission when total price is updated
+    totalPriceElement.removeEventListener('click', redirectToConfirmationPage);
+});
