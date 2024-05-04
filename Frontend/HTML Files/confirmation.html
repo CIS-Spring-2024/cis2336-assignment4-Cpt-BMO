@@ -4,50 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Confirmation</title>
+    <link rel="stylesheet" href="../CSS Files/header and footer style.css">
+    <link rel="stylesheet" href="../CSS Files/confirmation.css">
     <script src="../JavaScript Files/script.js"></script>
     <script src="../Backend/BackEnd.js"></script>
 </head>
 <body>
-    <h1>Order Confirmation</h1>
-    <p>Your order has been placed successfully!</p>
-    <p>Total Price: <span id="totalAmount"></span></p>
 
-    <script>
-        // Fetch total amount from the server
-        fetch('http://localhost:3000/get-total')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch total amount');
-                }
-                return response.json();
-            })
-            .then(data => {
-                document.getElementById('totalAmount').textContent = `Total Amount: $${data.totalAmount.toFixed(2)}`;
-            })
-            .catch(error => {
-                console.error('Error fetching total amount:', error);
-            });
+    <header>
+        <h1> Order Confirmation </h1>
+        <img src="../images/UH Dining Services logo.png" class="logo">
+    </header>
 
-        // Submit order
-        fetch('http://localhost:3000/submit-order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ totalPrice: totalPrice }),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to submit order');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data.message);
-        })
-        .catch(error => {
-            console.error('Error submitting order:', error);
-        });
-    </script>
+    <div class="topnav">
+        <a href="biography.html">Home</a>
+        <a href="Cafeteria Main.html">Last Bite</a>
+        <a href="menu.html" class="active">Menu</a>
+        <a href="Try Out.html">Try Out</a>
+        <a href="About Us.html">About Us</a>
+        <a href="More.html">More</a>
+    </div>
+
+    <section id="OrderConfirm">
+        <h1>Order Confirmation</h1>
+        <p>Your order has been placed successfully!</p>
+        <p>Total Price: <span id="totalAmount"></span></p>
+    </section>
+
 </body>
 </html>
