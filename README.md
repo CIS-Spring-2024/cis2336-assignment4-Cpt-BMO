@@ -10,7 +10,7 @@ This project implements Node.js using express to handle the backend
 Open this project in VScode to reduce any problems
 1. in VSCode, route to the backend by using this command: 
 ```
-cd "cis2336-assignment4-Cpt-BMO\Backend"
+cd "Backend"
 ```
 
 2. install any dependencies that are needed by using this command:
