@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const openShopping = document.querySelector('.cart-container');
     const closeShopping = document.querySelector('.closeShopping');
     const shoppingCartList = document.querySelector('.MenuItems');
-    let totalPrice = 0;
 
     // Event listener to open the shopping cart
     openShopping.addEventListener('click', () => {
@@ -204,6 +203,8 @@ function addToCart(item) {
     }
 }
 
+// I tried to move this, then it wouldn't work
+// so im just gonna keep this here
 document.addEventListener('DOMContentLoaded', () => {
     updateCart(); // Get total price on page load
 
