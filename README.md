@@ -14,9 +14,10 @@ cd "Backend"
 2. install any dependencies that are needed by using this command:
 ```
 npm install
+```
 
 or
-
+```
 npm install express
 npm install cors
 ```
