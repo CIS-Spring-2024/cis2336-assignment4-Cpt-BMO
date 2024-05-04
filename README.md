@@ -5,7 +5,7 @@ This project implements Node.js using express to handle the backend
 2. Use of middleware to calculate the total amount 
 3. Displays the total amount on a new order confirmation page
 
-**Usage**
+**Usage**  
 Open this project in VScode to reduce any problems
 1. in VSCode, route to the backend by using this command: 
 ```
