@@ -6,16 +6,16 @@ This project implements Node.js using express to handle the backend
 3. Displays the total amount on a new order confirmation page
 
 **Usage**
-1. in VSCode or in the Node.js command prompt, route to the backend by using this command: 
+Open this project in VScode to reduce any problems
+1. in VSCode, route to the backend by using this command: 
 ```
-cd "Backend"
+cd "cis2336-assignment4-Cpt-BMO\Backend"
 ```
 
 2. install any dependencies that are needed by using this command:
 ```
 npm install
 ```
-
 or
 ```
 npm install express
