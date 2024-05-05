@@ -88,8 +88,7 @@ app.post('/update-total-price', (req, res) => {
 
 // Serve the order confirmation page
 app.get('/confirmation', (req, res) => {
-  const totalPrice = req.query.totalPrice || 0;
-  res.redirect(`http://127.0.0.1:5500/Frontend/HTML%20Files/confirmation.html?totalPrice=${totalPrice}`);
+  res.sendFile(path.join(__dirname, 'HTML', 'confirmation.html'));
 });
 
 // Start the Express server
